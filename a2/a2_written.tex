@@ -242,33 +242,33 @@
 
 \begin{homeworkProblem}
     \[
-        J_{naive-softmax}(\boldsymbol{v}_c, o, \boldsymbol{U})
-        = - \boldsymbol{u}_o^\top\boldsymbol{v_c} + \log{\left(\sum_{k\in\text{|Vocab|}}\exp{(\boldsymbol{u}_k^\top\boldsymbol{v_c})}\right)}
+        J_{naive-softmax}(\bm{v}_c, o, \bm{U})
+        = - \bm{u}_o^\top\bm{v_c} + \log{\left(\sum_{k\in\text{|Vocab|}}\exp{(\bm{u}_k^\top\bm{v_c})}\right)}
     \]
     When $w \neq o$,
     \begin{align*}
-        \frac{\partial J_{naive-softmax}(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{u_{w\neq o}}}
-        &= \frac{\partial}{\partial \boldsymbol{u_{w\neq o}}}\left[-\boldsymbol{u}_o^\top\boldsymbol{v_c} + \log{\left(\sum_{k\in\text{|Vocab|}}\exp{(\boldsymbol{u}_k^\top\boldsymbol{v_c})}\right)}\right] \\
-        &= 0 + \frac{\exp{(\boldsymbol{u}_{w\neq o}^\top\boldsymbol{v_c})}\boldsymbol{v_c}}{\sum_{k\in\text{|Vocab|}}\exp{(\boldsymbol{u}_k^\top\boldsymbol{v_c})}}\\
-        &= \left(\frac{\exp{(\boldsymbol{u}_{w\neq o}^\top\boldsymbol{v_c})}}{\sum_{k\in\text{|Vocab|}}\exp{(\boldsymbol{u}_k^\top\boldsymbol{v_c})}}\right) \boldsymbol{v_c}\\
-        &= \boldsymbol{\hat{y}_{w\neq o}} \boldsymbol{v_c}\\
+        \frac{\partial J_{naive-softmax}(\bm{v}_c, o, \bm{U})}{\partial \bm{u_{w\neq o}}}
+        &= \frac{\partial}{\partial \bm{u_{w\neq o}}}\left[-\bm{u}_o^\top\bm{v_c} + \log{\left(\sum_{k\in\text{|Vocab|}}\exp{(\bm{u}_k^\top\bm{v_c})}\right)}\right] \\
+        &= 0 + \frac{\exp{(\bm{u}_{w\neq o}^\top\bm{v_c})}\bm{v_c}}{\sum_{k\in\text{|Vocab|}}\exp{(\bm{u}_k^\top\bm{v_c})}}\\
+        &= \left(\frac{\exp{(\bm{u}_{w\neq o}^\top\bm{v_c})}}{\sum_{k\in\text{|Vocab|}}\exp{(\bm{u}_k^\top\bm{v_c})}}\right) \bm{v_c}\\
+        &= \bm{\hat{y}_{w\neq o}} \bm{v_c}\\
     \end{align*}
 
     When $w = o$,
     \begin{align*}
-        \frac{\partial J_{naive-softmax}(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{u_{w = o}}}
-        &= \frac{\partial}{\partial \boldsymbol{u_{w=o}}}\left[-\boldsymbol{u}_o^\top\boldsymbol{v_c} + \log{\left(\sum_{k\in\text{|Vocab|}}\exp{(\boldsymbol{u}_k^\top\boldsymbol{v_c})}\right)}\right] \\
-        &= -\boldsymbol{v_c} + \frac{\exp{(\boldsymbol{u}_{w= o}^\top\boldsymbol{v_c})}\boldsymbol{v_c}}{\sum_{k\in\text{|Vocab|}}\exp{(\boldsymbol{u}_k^\top\boldsymbol{v_c})}}\\
-        &= -\boldsymbol{v_c} + \left(\frac{\exp{(\boldsymbol{u}_{w= o}^\top\boldsymbol{v_c})}}{\sum_{k\in\text{|Vocab|}}\exp{(\boldsymbol{u}_k^\top\boldsymbol{v_c})}}\right) \boldsymbol{v_c}\\
-        &= -\boldsymbol{v_c} + \boldsymbol{\hat{y}_{w= o}} \boldsymbol{v_c}\\
-        &= (\boldsymbol{\hat{y}_{w=o}}-1) \boldsymbol{v_c}
+        \frac{\partial J_{naive-softmax}(\bm{v}_c, o, \bm{U})}{\partial \bm{u_{w = o}}}
+        &= \frac{\partial}{\partial \bm{u_{w=o}}}\left[-\bm{u}_o^\top\bm{v_c} + \log{\left(\sum_{k\in\text{|Vocab|}}\exp{(\bm{u}_k^\top\bm{v_c})}\right)}\right] \\
+        &= -\bm{v_c} + \frac{\exp{(\bm{u}_{w= o}^\top\bm{v_c})}\bm{v_c}}{\sum_{k\in\text{|Vocab|}}\exp{(\bm{u}_k^\top\bm{v_c})}}\\
+        &= -\bm{v_c} + \left(\frac{\exp{(\bm{u}_{w= o}^\top\bm{v_c})}}{\sum_{k\in\text{|Vocab|}}\exp{(\bm{u}_k^\top\bm{v_c})}}\right) \bm{v_c}\\
+        &= -\bm{v_c} + \bm{\hat{y}_{w= o}} \bm{v_c}\\
+        &= (\bm{\hat{y}_{w=o}}-1) \bm{v_c}
     \end{align*}
     Therefore,
     \[
-        \frac{\partial J_{naive-softmax}(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{u_w}} =
+        \frac{\partial J_{naive-softmax}(\bm{v}_c, o, \bm{U})}{\partial \bm{u_w}} =
         \begin{cases}
-        \boldsymbol{\hat{y}_{w}} \boldsymbol{v_c}     &\text{if } w \neq o \\
-        (\boldsymbol{\hat{y}_{w}}-1) \boldsymbol{v_c} &\text{if } w = o
+        \bm{\hat{y}_{w}} \bm{v_c}     &\text{if } w \neq o \\
+        (\bm{\hat{y}_{w}}-1) \bm{v_c} &\text{if } w = o
         \end{cases}
     \]
 \end{homeworkProblem}
@@ -276,12 +276,12 @@
 
 \begin{homeworkProblem}
     \[
-        \frac{\partial J_{naive-softmax}(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{U}} =
+        \frac{\partial J_{naive-softmax}(\bm{v}_c, o, \bm{U})}{\partial \bm{U}} =
             \begin{pmatrix}
-                \frac{\partial J(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{u_1}} &
-                \frac{\partial J(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{u_2}} &
+                \frac{\partial J(\bm{v}_c, o, \bm{U})}{\partial \bm{u_1}} &
+                \frac{\partial J(\bm{v}_c, o, \bm{U})}{\partial \bm{u_2}} &
                 ... &
-                \frac{\partial J(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{u_{|\text{Vocab}|}}}
+                \frac{\partial J(\bm{v}_c, o, \bm{U})}{\partial \bm{u_{|\text{Vocab}|}}}
             \end{pmatrix}
     \]
 \end{homeworkProblem}
@@ -321,39 +321,39 @@
         &= 1 - \sigma(x)
     \end{align*}
     \[
-        J_{\text{negative-sample}}(\boldsymbol{v}_c, o, \boldsymbol{U}) = - \log (\sigma(\boldsymbol{u}_o^\top\boldsymbol{v_c})) - \sum_{s=1}^{K} \log (\sigma(-\boldsymbol{u}_{w_s}^\top\boldsymbol{v_c}))
+        J_{\text{negative-sample}}(\bm{v}_c, o, \bm{U}) = - \log (\sigma(\bm{u}_o^\top\bm{v_c})) - \sum_{s=1}^{K} \log (\sigma(-\bm{u}_{w_s}^\top\bm{v_c}))
     \]
     \begin{align*}
-        \frac{\partial J_{\text{negative-sample}}(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{v_c}}
-        &= (\sigma(\boldsymbol{u}_o^\top\boldsymbol{v_c}) - 1) \frac{\partial}{\partial \boldsymbol{v_c}} (\boldsymbol{u}_o^\top\boldsymbol{v_c})
-            + \sum_{s=1}^{K} (\sigma(-\boldsymbol{u}_{w_s}^\top\boldsymbol{v_c}) - 1) \frac{\partial}{\partial \boldsymbol{v_c}} (-\boldsymbol{u}_{w_s}^\top\boldsymbol{v_c}) \\
-        &= (\sigma(\boldsymbol{u}_o^\top\boldsymbol{v_c}) - 1) \boldsymbol{u}_o
-            - \sum_{s=1}^{K} (\sigma(-\boldsymbol{u}_{w_s}^\top\boldsymbol{v_c}) - 1) \boldsymbol{u}_{w_s} \\
+        \frac{\partial J_{\text{negative-sample}}(\bm{v}_c, o, \bm{U})}{\partial \bm{v_c}}
+        &= (\sigma(\bm{u}_o^\top\bm{v_c}) - 1) \frac{\partial}{\partial \bm{v_c}} (\bm{u}_o^\top\bm{v_c})
+            + \sum_{s=1}^{K} (\sigma(-\bm{u}_{w_s}^\top\bm{v_c}) - 1) \frac{\partial}{\partial \bm{v_c}} (-\bm{u}_{w_s}^\top\bm{v_c}) \\
+        &= (\sigma(\bm{u}_o^\top\bm{v_c}) - 1) \bm{u}_o
+            - \sum_{s=1}^{K} (\sigma(-\bm{u}_{w_s}^\top\bm{v_c}) - 1) \bm{u}_{w_s} \\
         \\
-        \frac{\partial J_{\text{negative-sample}}(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{u_o}}
-        &= (\sigma(\boldsymbol{u}_o^\top\boldsymbol{v_c}) - 1) \frac{\partial}{\partial \boldsymbol{u_o}} (\boldsymbol{u}_o^\top\boldsymbol{v_c})
+        \frac{\partial J_{\text{negative-sample}}(\bm{v}_c, o, \bm{U})}{\partial \bm{u_o}}
+        &= (\sigma(\bm{u}_o^\top\bm{v_c}) - 1) \frac{\partial}{\partial \bm{u_o}} (\bm{u}_o^\top\bm{v_c})
             + 0\\
-        &= (\sigma(\boldsymbol{u}_o^\top\boldsymbol{v_c}) - 1) \boldsymbol{v}_c \\
+        &= (\sigma(\bm{u}_o^\top\bm{v_c}) - 1) \bm{v}_c \\
         \\
-        \frac{\partial J_{\text{negative-sample}}(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{u_{w_s}}}
-        &= 0 + (\sigma(-\boldsymbol{u}_{w_s}^\top\boldsymbol{v_c}) - 1) \frac{\partial}{\partial \boldsymbol{u_{w_s}}} (-\boldsymbol{u}_{w_s}^\top\boldsymbol{v_c}) \\
-        &= - (\sigma(-\boldsymbol{u}_{w_s}^\top\boldsymbol{v_c}) - 1) \boldsymbol{v}_c
+        \frac{\partial J_{\text{negative-sample}}(\bm{v}_c, o, \bm{U})}{\partial \bm{u_{w_s}}}
+        &= 0 + (\sigma(-\bm{u}_{w_s}^\top\bm{v_c}) - 1) \frac{\partial}{\partial \bm{u_{w_s}}} (-\bm{u}_{w_s}^\top\bm{v_c}) \\
+        &= - (\sigma(-\bm{u}_{w_s}^\top\bm{v_c}) - 1) \bm{v}_c
     \end{align*}
 
     \vspace{1em}
 
     \textbf{Part (ii)}
     \[
-        \boldsymbol{U_{o,\{w_1, ...,w_K\}}} = \left[ \boldsymbol{u_o},  -\boldsymbol{u_{w_1}}, \cdots, -\boldsymbol{u_{w_K}} \right]
+        \bm{U_{o,\{w_1, ...,w_K\}}} = \left[ \bm{u_o},  -\bm{u_{w_1}}, \cdots, -\bm{u_{w_K}} \right]
     \]
     Denote
     \begin{align*}
-        \boldsymbol{\lambda} &= \sigma \left( \boldsymbol{U_{o,\{w_1, \cdots,w_K\}}^\top}\boldsymbol{v_c} \right) - \boldsymbol{1} \\
+        \bm{\lambda} &= \sigma \left( \bm{U_{o,\{w_1, \cdots,w_K\}}^\top}\bm{v_c} \right) - \bm{1} \\
         &= \begin{pmatrix}
-                \sigma(\boldsymbol{u}_o^\top\boldsymbol{v_c}) - 1\\
-                \sigma(-\boldsymbol{u}_{w_1}^\top\boldsymbol{v_c}) - 1\\
+                \sigma(\bm{u}_o^\top\bm{v_c}) - 1\\
+                \sigma(-\bm{u}_{w_1}^\top\bm{v_c}) - 1\\
                 \vdots\\
-                \sigma(-\boldsymbol{u}_{w_K}^\top\boldsymbol{v_c}) - 1\\
+                \sigma(-\bm{u}_{w_K}^\top\bm{v_c}) - 1\\
             \end{pmatrix}\\
         &= \begin{pmatrix}
                 \lambda_o\\
@@ -362,15 +362,15 @@
                 \lambda_K\\
             \end{pmatrix}
     \end{align*}
-    Each element of $\boldsymbol{\lambda}$ is used in computing the partial derivatives in part (g)(i). The derivatives are simplified as follows:
+    Each element of $\bm{\lambda}$ is used in computing the partial derivatives in part (g)(i). The derivatives are simplified as follows:
     \begin{align*}
-        \frac{\partial J_{\text{negative-sample}}(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{v_c}}
-        &= \lambda_o \boldsymbol{u}_o
-            - \sum_{s=1}^{K} \lambda_s \boldsymbol{u}_{w_s} \\
-        \frac{\partial J_{\text{negative-sample}}(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{u_o}}
-        &= \lambda_o \boldsymbol{v}_c \\
-        \frac{\partial J_{\text{negative-sample}}(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{u_{w_s}}}
-        &= - \lambda_s \boldsymbol{v}_c
+        \frac{\partial J_{\text{negative-sample}}(\bm{v}_c, o, \bm{U})}{\partial \bm{v_c}}
+        &= \lambda_o \bm{u}_o
+            - \sum_{s=1}^{K} \lambda_s \bm{u}_{w_s} \\
+        \frac{\partial J_{\text{negative-sample}}(\bm{v}_c, o, \bm{U})}{\partial \bm{u_o}}
+        &= \lambda_o \bm{v}_c \\
+        \frac{\partial J_{\text{negative-sample}}(\bm{v}_c, o, \bm{U})}{\partial \bm{u_{w_s}}}
+        &= - \lambda_s \bm{v}_c
     \end{align*}
 
     \pagebreak
@@ -384,23 +384,23 @@
 
 \begin{homeworkProblem}
     \begin{align*}
-        \frac{\partial J_{\text{negative-sample}}(\boldsymbol{v}_c, o, \boldsymbol{U})}{\partial \boldsymbol{u_{w_s}}}
-        &= \frac{\partial}{\partial \boldsymbol{u_{w_s}}}
-            \left( - \log (\sigma(\boldsymbol{u}_o^\top\boldsymbol{v_c}))
-                    - \sum_{k=1}^{K} \log (\sigma(-\boldsymbol{u}_{w_k}^\top\boldsymbol{v_c}))
+        \frac{\partial J_{\text{negative-sample}}(\bm{v}_c, o, \bm{U})}{\partial \bm{u_{w_s}}}
+        &= \frac{\partial}{\partial \bm{u_{w_s}}}
+            \left( - \log (\sigma(\bm{u}_o^\top\bm{v_c}))
+                    - \sum_{k=1}^{K} \log (\sigma(-\bm{u}_{w_k}^\top\bm{v_c}))
             \right)\\
-        &= \frac{\partial}{\partial \boldsymbol{u_{w_s}}}
-            \left( - \log (\sigma(\boldsymbol{u}_o^\top\boldsymbol{v_c}))
-                    - \sum_{\substack{k=1 \\ w_k \neq w_s}}^{K} \log (\sigma(-\boldsymbol{u}_{w_k}^\top\boldsymbol{v_c}))
-                    - \sum_{\substack{k=1 \\ w_k = w_s}}^{K} \log (\sigma(-\boldsymbol{u}_{w_k}^\top\boldsymbol{v_c}))
+        &= \frac{\partial}{\partial \bm{u_{w_s}}}
+            \left( - \log (\sigma(\bm{u}_o^\top\bm{v_c}))
+                    - \sum_{\substack{k=1 \\ w_k \neq w_s}}^{K} \log (\sigma(-\bm{u}_{w_k}^\top\bm{v_c}))
+                    - \sum_{\substack{k=1 \\ w_k = w_s}}^{K} \log (\sigma(-\bm{u}_{w_k}^\top\bm{v_c}))
             \right)\\
         &= 0
             - 0 -
-            \frac{\partial}{\partial \boldsymbol{u_{w_s}}}
+            \frac{\partial}{\partial \bm{u_{w_s}}}
             \left(
-                    \sum_{\substack{k=1 \\ w_k = w_s}}^{K} \log (\sigma(-\boldsymbol{u}_{w_k}^\top\boldsymbol{v_c}))
+                    \sum_{\substack{k=1 \\ w_k = w_s}}^{K} \log (\sigma(-\bm{u}_{w_k}^\top\bm{v_c}))
             \right)\\
-        &= - \sum_{\substack{k=1 \\ w_k = w_s}}^{K} (\sigma(-\boldsymbol{u}_{w_s}^\top\boldsymbol{v_c}) - 1) \boldsymbol{v}_c
+        &= - \sum_{\substack{k=1 \\ w_k = w_s}}^{K} (\sigma(-\bm{u}_{w_s}^\top\bm{v_c}) - 1) \bm{v}_c
     \end{align*}
 
 \end{homeworkProblem}
@@ -409,11 +409,11 @@
 
 \begin{homeworkProblem}
     \begin{align*}
-        \frac{\partial J_{\text{skip-gram}}(\boldsymbol{v}_c, w_{t-m}, \cdots, w_{t+m}, \boldsymbol{U})}{\partial \boldsymbol{U}}
-            &= \sum_{\substack{-m \leq j < m\\ j\neq 0}} \frac{\partial J(\boldsymbol{v}_c, w_{t+j}, \boldsymbol{U})}{\partial \boldsymbol{U}} \\
-        \frac{\partial J_{\text{skip-gram}}(\boldsymbol{v}_c, w_{t-m}, \cdots, w_{t+m}, \boldsymbol{U})}{\partial \boldsymbol{v_c}}
-            &= \sum_{\substack{-m \leq j < m\\ j\neq 0}} \frac{\partial J(\boldsymbol{v}_c, w_{t+j}, \boldsymbol{U})}{\partial \boldsymbol{v_c}} \\
-        \frac{\partial J_{\text{skip-gram}}(\boldsymbol{v}_c, w_{t-m}, \cdots, w_{t+m}, \boldsymbol{U})}{\partial \boldsymbol{v_w}}
+        \frac{\partial J_{\text{skip-gram}}(\bm{v}_c, w_{t-m}, \cdots, w_{t+m}, \bm{U})}{\partial \bm{U}}
+            &= \sum_{\substack{-m \leq j < m\\ j\neq 0}} \frac{\partial J(\bm{v}_c, w_{t+j}, \bm{U})}{\partial \bm{U}} \\
+        \frac{\partial J_{\text{skip-gram}}(\bm{v}_c, w_{t-m}, \cdots, w_{t+m}, \bm{U})}{\partial \bm{v_c}}
+            &= \sum_{\substack{-m \leq j < m\\ j\neq 0}} \frac{\partial J(\bm{v}_c, w_{t+j}, \bm{U})}{\partial \bm{v_c}} \\
+        \frac{\partial J_{\text{skip-gram}}(\bm{v}_c, w_{t-m}, \cdots, w_{t+m}, \bm{U})}{\partial \bm{v_w}}
             &= 0 \qquad \text{where} \quad w \neq c
     \end{align*}
 \end{homeworkProblem}
@@ -423,10 +423,10 @@
 \section{Coding: Implementing word2vec Part (c)}
 
 \begin{figure}[h]
-    \includegraphics[width=12cm]{word_vectors.png}
+    \includegraphics[width=10cm]{word_vectors.png}
     \centering
 \end{figure}
 
-In the plot, some synonyms ("amazing", "wonderful", "great") and antonyms (enjoyable, annoying) are cluster together. Terms with similar usage such as ("tea", "coffee"), ("rain", "snow") and ("female", "woman") also group together. Lastly, the linear relationships of word vectors, i.e. vec("king") - vec("male) + vec("female") $\approx$ vec("queen"), is observed.
+In the plot, some synonyms ("amazing", "wonderful", "great") and antonyms ("enjoyable", "annoying") are cluster together. Terms with similar usage such as ("tea", "coffee"), ("rain", "snow") and ("female", "woman") also group together. Lastly, the linear relationships of word vectors, i.e. vec("king") $-$ vec("male") + vec("female") $\approx$ vec("queen"), is observed.
 
 \end{document}
